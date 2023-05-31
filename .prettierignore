@@ -1,0 +1,5 @@
+dist
+node_modules
+src/database/migrations
+DiTest.postman_collection.json
+tsconfig.json

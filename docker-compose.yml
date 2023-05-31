@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+    di-test:
+        build: .
+        container_name: di_test_back
+        volumes:
+            - .:/di-test
+            - /di-test/node_modules
+        ports:
+            - '3000:3000'
+        depends_on:
+            - postgres
+            - mongo
+        env_file:
+            - .env
+
+    postgres:
+        image: 'postgres:latest'
+        container_name: di_test_postgres
+        env_file:
+            - .env
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        ports:
+            - '5434:5432'
+
+    mongo:
+        image: 'mongo:latest'
+        container_name: di_test_mongodb
+        volumes:
+            - mongo_data:/data/db
+        ports:
+            - '27018:27017'
+        env_file:
+            - .env
+
+volumes:
+    postgres_data:
+    mongo_data:
