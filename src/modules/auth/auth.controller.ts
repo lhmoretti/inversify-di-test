@@ -18,8 +18,6 @@ export class AuthController {
         let user: User = <User>{};
 
         if (email) user = (await User.findByEmail(email)) as User;
-        if (phone) user = (await User.findByTelefono(phone)) as User;
-        if (username) user = (await User.findByUsername(username)) as User;
 
         if (!user)
             return ApiResponse({
@@ -100,7 +98,5 @@ export class AuthController {
         let user: User = <User>{};
 
         if (email) user = (await User.findByEmail(email)) as User;
-        if (phone) user = (await User.findByTelefono(phone)) as User;
-        if (username) user = (await User.findByUsername(username)) as User;
     }
 }
