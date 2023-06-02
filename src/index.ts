@@ -5,10 +5,10 @@ if (result.error) {
     throw result.error;
 }
 
-import { Config } from './config/config';
+import { Config } from './bin/config';
 const config: Config = new Config();
 
-import AppBootstrap from './config/bootstrap';
+import AppBootstrap from './bin/bootstrap';
 
 const app = new AppBootstrap().app;
 

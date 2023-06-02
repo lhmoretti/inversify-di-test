@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Config } from '../../config/config';
+import { Config } from '../../bin/config';
 const config: Config = new Config();
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Config } from '../config/config';
+import { Config } from '../bin/config';
 
 export const STATUS_OK = 'OK';
 export const STATUS_FAILED = 'FAILED';
