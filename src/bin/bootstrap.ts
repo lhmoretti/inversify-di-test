@@ -19,8 +19,14 @@ export default class AppBootstrap {
     constructor() {
         console.log('Loading Server...');
         this.appRoutes = new DiContainer().container.resolve<Routes>(Routes);
+        this.init()
+    }
+
+    private async init() {
         this.middlewares();
         this.setRoutes();
+        await this.connectDatabases();
+        this.setApp();
     }
 
     async connectDatabases() {
@@ -54,5 +60,13 @@ export default class AppBootstrap {
         this.appRoutes.routes(router);
 
         this.app.use('/api', router);
+    }
+
+    private setApp() {
+        this.app.set('port', config.port);
+
+        this.app.listen(config.port, async () => {
+            console.log(`App listening on port: ${config.port}`);
+        });
     }
 }
