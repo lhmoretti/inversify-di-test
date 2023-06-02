@@ -1,11 +1,14 @@
 import { Request, Response } from 'express';
 import { UserService } from './user.service';
 import { inject, injectable } from 'inversify';
-import { TYPES } from '../../types';
 
 @injectable()
 export class UserController {
-    constructor(private readonly _userService: UserService) {}
+    private _userService: UserService;
+    
+    constructor(@inject(UserService) private readonly userService: UserService) {
+        this._userService = this.userService;
+    }
 
     public async getAll(req: Request, res: Response) {
         this._userService.getAll();

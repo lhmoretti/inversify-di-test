@@ -11,15 +11,14 @@ import * as bodyParser from 'body-parser';
 import { DiContainer } from './inversify.config';
 
 export default class AppBootstrap {
-    private loggerMorgan = require('morgan');
-
     public app: express.Application = express();
-    public appRoutes: Routes;
+    private appRoutes: Routes;
+    private loggerMorgan = require('morgan');
 
     constructor() {
         console.log('Loading Server...');
         this.appRoutes = new DiContainer().container.resolve<Routes>(Routes);
-        this.init()
+        this.init();
     }
 
     private async init() {

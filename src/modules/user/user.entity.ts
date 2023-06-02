@@ -5,12 +5,9 @@ import {
     BaseEntity,
     CreateDateColumn,
     UpdateDateColumn,
-    JoinTable,
-    ManyToMany,
     ManyToOne,
     BeforeUpdate,
 } from 'typeorm';
-import * as iqa from '../../helpers/isQueryAllowed';
 import { Roles } from '../role/roles.entity';
 
 @Entity('user')

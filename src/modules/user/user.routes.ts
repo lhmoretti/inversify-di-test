@@ -7,14 +7,20 @@ import { inject, injectable } from 'inversify';
 
 @injectable()
 export class UserRouter {
-    public constructor(private readonly controller: UserController) {}
+    private _controller: UserController;
+
+    public constructor(@inject(UserController) private readonly controller: UserController) {
+        this._controller = this.controller;
+    }
 
     public routes(router: express.Router): express.Router {
         router
             .route('/user/:id')
-            .get(mw.isAllowed([SUPERADMIN]), catchErrors(this.controller.getById));
+            .get(mw.isAllowed([SUPERADMIN]), catchErrors(this._controller.getById));
 
-        router.route('/users').get(mw.isAllowed([SUPERADMIN]), catchErrors(this.controller.getAll));
+        router
+            .route('/users')
+            .get(mw.isAllowed([SUPERADMIN]), catchErrors(this._controller.getAll));
 
         return router;
     }

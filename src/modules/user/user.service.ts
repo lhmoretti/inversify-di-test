@@ -4,13 +4,17 @@ import { UserRepository } from './user.repository';
 
 @injectable()
 export class UserService {
-    public constructor(private readonly userRepository: UserRepository) {}
+    private _userRepository: UserRepository;
+
+    public constructor(@inject(UserRepository) private readonly userRepository: UserRepository) {
+        this._userRepository = this.userRepository;
+    }
 
     async getById(id: number): Promise<User> {
-        return this.userRepository.getById(id);
+        return this._userRepository.getById(id);
     }
 
     async getAll(): Promise<User[]> {
-        return this.userRepository.getAll();
+        return this._userRepository.getAll();
     }
 }
