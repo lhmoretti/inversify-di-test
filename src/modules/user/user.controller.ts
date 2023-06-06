@@ -20,9 +20,10 @@ export class UserController {
     }
 
     public async getById(req: Request, res: Response) {
+        const id = Number(req.params.id);
         ApiResponse(<ICustomResponse<User>>{
             res,
-            data: await this._userService.getById(req.body.id),
+            data: await this._userService.getById(id),
         });
     }
 

@@ -6,9 +6,7 @@ import { User } from './user.entity';
 @injectable()
 export class UserRepository implements IUserRepository {
     async getById(id: number): Promise<User> {
-        return await User.findOneByOrFail({
-            where: { id },
-        } as FindOptionsWhere<User>);
+        return await User.findOneByOrFail({ id } as FindOptionsWhere<User>);
     }
 
     public async insert(user: User): Promise<User> {
