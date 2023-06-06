@@ -32,7 +32,7 @@ export class UserRepository implements IUserRepository {
     public async getAll(): Promise<User[]> {
         return await User.find({
             order: { id: 'ASC' },
-            relations: [''],
+            // relations: [''],
         });
     }
 }

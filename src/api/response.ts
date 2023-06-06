@@ -7,11 +7,11 @@ export const STATUS_FAILED = 'FAILED';
 const conf: Config = new Config();
 const isDevEnv: boolean = conf.nodeEnv === 'DEV' ? true : false;
 
-export interface ICustomResponse {
+export type ICustomResponse<T> = {
     req?: Request;
     res: Response;
     ok?: boolean;
-    data?: any;
+    data?: T | T[];
     status?: string;
     count?: number;
     error?: any;
@@ -20,14 +20,14 @@ export interface ICustomResponse {
     internalMessage?: string;
     path?: string;
     method?: string;
-}
+};
 
 /**
  * Custom response to normalize all Responses.
  * @param {ICustomResponse} arg
  * @returns {Response} a CustomResponse object.
  */
-export const ApiResponse = ({
+export const ApiResponse = <T>({
     res,
     ok = true,
     status = STATUS_OK,
@@ -35,7 +35,7 @@ export const ApiResponse = ({
     data = [],
     error = null,
     count = 0,
-}: ICustomResponse): Response => {
+}: ICustomResponse<T>): Response => {
     if (error) {
         ok = false;
         status = STATUS_FAILED;
@@ -49,7 +49,6 @@ export const ApiResponse = ({
         });
     }
 
-    // chequeamos que sea un array, sino, lo convertimos en uno
     if (!Array.isArray(data)) data = [data];
     if (typeof count !== 'number') count = parseInt(count);
 

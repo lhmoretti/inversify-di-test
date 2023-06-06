@@ -9,11 +9,11 @@ import { USER_TYPES } from '../../types';
 export class UserModule extends ContainerModule {
     public constructor() {
         super((bind) => {
-            bind<UserRouter>(UserRouter).toSelf();
-            bind<IUserRepository>(USER_TYPES.IUserRepository).to(UserRepository);
-            bind<UserRepository>(UserRepository).toSelf();
-            bind<UserController>(UserController).toSelf();
-            bind<UserService>(UserService).toSelf();
+            bind<UserRouter>(UserRouter).toSelf().inSingletonScope();
+            bind<IUserRepository>(USER_TYPES.IUserRepository).to(UserRepository).inSingletonScope();
+            bind<UserRepository>(UserRepository).toSelf().inSingletonScope();
+            bind<UserController>(UserController).toSelf().inSingletonScope();
+            bind<UserService>(UserService).toSelf().inSingletonScope();
         });
     }
 }

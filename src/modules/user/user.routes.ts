@@ -15,12 +15,18 @@ export class UserRouter {
 
     public routes(router: express.Router): express.Router {
         router
-            .route('/user/:id')
-            .get(mw.isAllowed([SUPERADMIN]), catchErrors(this._controller.getById));
+            .route('/users/:id')
+            .get(
+                mw.isAllowed([SUPERADMIN]),
+                catchErrors(this._controller.getById.bind(this._controller))
+            );
 
         router
             .route('/users')
-            .get(mw.isAllowed([SUPERADMIN]), catchErrors(this._controller.getAll));
+            .get(
+                mw.isAllowed([SUPERADMIN]),
+                catchErrors(this._controller.getAll.bind(this._controller))
+            );
 
         return router;
     }

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { UserService } from './user.service';
 import { inject, injectable } from 'inversify';
 import { User } from './user.entity';
+import { ApiResponse, ICustomResponse } from '../../api/response';
 
 @injectable()
 export class UserController {
@@ -11,12 +12,18 @@ export class UserController {
         this._userService = this.userService;
     }
 
-    public async getAll(req: Request, res: Response): Promise<User[]> {
-        return this._userService.getAll();
+    public async getAll(req: Request, res: Response) {
+        ApiResponse(<ICustomResponse<User[]>>{
+            res,
+            data: await this._userService.getAll(),
+        });
     }
 
-    public async getById(req: Request, res: Response): Promise<User> {
-        return this._userService.getById(req.body.id);
+    public async getById(req: Request, res: Response) {
+        ApiResponse(<ICustomResponse<User>>{
+            res,
+            data: await this._userService.getById(req.body.id),
+        });
     }
 
     public async create(req: Request, res: Response) {
